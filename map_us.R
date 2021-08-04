@@ -30,23 +30,47 @@ county_df <- map_data('county')
 mn <- subset(county_df, region=="minnesota") # Counties in Minnesota
 
 
-# lets plot US
-p <- ggplot() + geom_polygon( data=states, aes(x=long, y=lat, group = group), colour="black", fill="white" , size=0.2)
-p <- p + theme(axis.title.x=element_blank(),
-              axis.text.x=element_blank(),
-              axis.ticks.x=element_blank())
+# 1) let's plot US
+p <- ggplot() + geom_polygon( data=states, aes(x=long, y=lat, group = group), 
+                              colour="black", fill="white" , size=0.2)
+p <- p + theme_void()
 p
 
 
-p <- p + geom_polygon( data=states, aes(x=long, y=lat, group = group),colour="black", fill="white" , size=0.2)
-p <- p + geom_polygon( data=mn, aes(x=long, y=lat, group = group),colour="black", fill="white" , size=0.05)
-# p <- p + geom_segment(aes(x=X1, y=Y1, xend = X2, yend = Y2), data=edge, size = 0.25, colour="grey") + geom_point( data=subset(attr, type != "Feed" |  type != "Office" |  type != "Truckwash" ), aes(x=long,y=lat), size=0.5) + labs(x = "Longitude", y = "Latitude") + theme_bw() + theme(panel.grid.major=element_line(colour="black", size=0.05)) 
-p <- p + theme(axis.text.x=element_text(size=8), axis.text.x = element_text(size=10))
-p <- p + theme(axis.text.y=element_text(size=8), axis.text.y = element_text(size=10))
-
+# 2) let's add the counties of a specific state (e.g., counties of Minnesota)
+p <- ggplot() + geom_polygon( data=states, aes(x=long, y=lat, group = group), 
+                              colour="black", fill="white" , size=0.2)
+p <- p + geom_polygon( data=mn, aes(x=long, y=lat, group = group),
+                       colour="black", fill="white" , size=0.05)
+p <- p + theme_void()
 p
 
 
+# 3) let's stress a state and add its counties  (e.g., counties of Minnesota)
+p <- ggplot() + geom_polygon( data=states, aes(x=long, y=lat, group = group), 
+                              colour="black", fill="white" , size=0.2)
+p <- p + geom_polygon( data=mn, aes(x=long, y=lat, group = group),
+                       colour="black", fill="white" , size=0.05)
+p <- p + geom_polygon(data= subset(states, region == "minnesota"), 
+                      aes(x=long, y=lat, group = group),
+                      colour="red", fill="transparent" , size=0.5)
+p <- p + theme_void()
+p
+
+
+# 4) let's stress a state  (e.g., counties of Minnesota)
+p <- ggplot() + geom_polygon( data=states, aes(x=long, y=lat, group = group), 
+                              colour="black", fill="white" , size=0.2)
+p <- p + geom_polygon(data= subset(states, region == "minnesota"), 
+                      aes(x=long, y=lat, group = group),
+                      colour="red", fill="green" , size=0.5)
+p <- p + theme_void()
+p
+
+
+
+
+# 5) Save the map in high resolution
 # tiff ("Fig1.tiff", width = 6, height = 4, units = 'in', res = 300, compression = 'lzw')
 # p
 # dev.off ()
