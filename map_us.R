@@ -46,7 +46,7 @@ p <- p + theme_void()
 p
 
 
-# 3) let's stress a state and add its counties  (e.g., counties of Minnesota)
+# 3) let's stress a state and add its counties  (e.g., Minnesota)
 p <- ggplot() + geom_polygon( data=states, aes(x=long, y=lat, group = group), 
                               colour="black", fill="white" , size=0.2)
 p <- p + geom_polygon( data=mn, aes(x=long, y=lat, group = group),
@@ -58,7 +58,7 @@ p <- p + theme_void()
 p
 
 
-# 4) let's stress a state  (e.g., counties of Minnesota)
+# 4) let's stress a state  (e.g., Minnesota)
 p <- ggplot() + geom_polygon( data=states, aes(x=long, y=lat, group = group), 
                               colour="black", fill="white" , size=0.2)
 p <- p + geom_polygon(data= subset(states, region == "minnesota"), 
